@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MainYuk: cari dan isi slot main badminton bareng PB di sekitar kamu.">
+  <title>MainYuk - Cari Slot Badminton</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER & NAVIGASI ===== -->
+  <header class="navbar">
+    <a class="logo" href="#beranda" data-view="beranda">
+      <span class="logo-mark" aria-hidden="true">M</span>
+      <span class="logo-text">MainYuk</span>
+    </a>
+
+    <nav aria-label="Navigasi utama">
+      <ul class="menu">
+        <li><a href="#jadwal" data-view="beranda">Jadwal</a></li>
+        <li><a href="#cara-main" data-view="beranda">Cara Main</a></li>
+        <li><a href="#admin" data-view="admin-login">Admin</a></li>
+      </ul>
+    </nav>
+
+    <button type="button" class="btn btn-primary btn-nav" data-view="admin-login">Daftarkan PB</button>
+  </header>
+
+  <main>
+
+    <!-- ===== TAMPILAN 1: BERANDA / DAFTAR JADWAL ===== -->
+    <section id="view-beranda" class="view" aria-labelledby="judul-beranda">
+
+      <section class="hero">
+        <p class="hero-sub">Main bareng PB, tanpa ribet</p>
+        <h1 id="judul-beranda">Cari Slot Badminton Malam Ini</h1>
+        <p class="hero-desc">Pilih jadwal PB, isi nama dan nomor HP, lalu langsung terhubung ke admin lewat WhatsApp.</p>
+
+        <form id="form-filter" class="filter-bar" role="search">
+          <div class="field">
+            <label for="filter-hari" class="sr-only">Hari</label>
+            <select id="filter-hari" name="hari">
+              <option value="semua">Hari: Semua</option>
+              <option value="Senin">Senin</option>
+              <option value="Selasa">Selasa</option>
+              <option value="Rabu">Rabu</option>
+              <option value="Kamis">Kamis</option>
+              <option value="Jumat">Jumat</option>
+              <option value="Sabtu">Sabtu</option>
+              <option value="Minggu">Minggu</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="filter-cari" class="sr-only">Cari nama PB atau lokasi</label>
+            <input type="search" id="filter-cari" name="cari" placeholder="Cari nama PB atau lokasi...">
+          </div>
+
+          <div class="field">
+            <label for="filter-urut" class="sr-only">Urutkan jadwal</label>
+            <select id="filter-urut" name="urut">
+              <option value="slot">Urutkan: Slot terbanyak</option>
+              <option value="murah">Harga termurah</option>
+              <option value="nama">Nama PB (A-Z)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Cari</button>
+        </form>
+      </section>
+
+      <section id="jadwal" class="section" aria-labelledby="judul-jadwal">
+        <header class="section-head">
+          <h2 id="judul-jadwal">Jadwal Tersedia</h2>
+          <p id="jumlah-jadwal" class="muted" aria-live="polite">0 jadwal ditemukan</p>
+        </header>
+
+        <!-- Kartu jadwal dibuat otomatis oleh JavaScript -->
+        <div id="daftar-jadwal" class="grid"></div>
+        <p id="jadwal-kosong" class="empty" hidden>Belum ada jadwal yang cocok. Coba ganti hari atau kata pencarian.</p>
+      </section>
+
+      <section id="cara-main" class="section" aria-labelledby="judul-cara-main">
+        <h2 id="judul-cara-main">Cara Main di MainYuk</h2>
+        <ol class="steps">
+          <li><article class="step"><h3>Pilih jadwal</h3><p>Cari PB, hari, dan harga yang cocok, lalu cek sisa slot.</p></article></li>
+          <li><article class="step"><h3>Klik Join</h3><p>Isi nama, nomor HP, dan jumlah slot yang diambil.</p></article></li>
+          <li><article class="step"><h3>Hubungi admin</h3><p>Setelah daftar, kamu diarahkan ke WhatsApp admin PB.</p></article></li>
+          <li><article class="step"><h3>Datang dan main</h3><p>Bayar bola dan lapangan sesuai info admin, lalu langsung main.</p></article></li>
+        </ol>
+      </section>
+    </section>
+
+    <!-- ===== TAMPILAN 2: DETAIL JADWAL & FORM JOIN ===== -->
+    <section id="view-detail" class="view" aria-labelledby="detail-pb" hidden>
+      <div class="container">
+        <button type="button" class="link-back" data-view="beranda">&lt; Kembali ke jadwal</button>
+
+        <header class="detail-head">
+          <h1 id="detail-pb">Nama PB</h1>
+          <span id="detail-badge" class="badge">Tersedia</span>
+        </header>
+
+        <div class="columns">
+          <div class="column-main">
+            <article class="card" aria-labelledby="judul-info">
+              <h3 id="judul-info">Info Jadwal</h3>
+              <dl class="info-list">
+                <div><dt>Lokasi</dt><dd id="detail-lokasi"></dd></div>
+                <div><dt>Hari</dt><dd id="detail-hari"></dd></div>
+                <div><dt>Jam</dt><dd id="detail-jam"></dd></div>
+                <div><dt>Harga bola</dt><dd id="detail-bola"></dd></div>
+                <div><dt>Sewa lapangan</dt><dd id="detail-lapangan"></dd></div>
+              </dl>
+              <div class="progress" role="progressbar" aria-label="Slot terisi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="detail-progress" class="progress-fill"></div>
+              </div>
+              <p id="detail-sisa" class="muted small"></p>
+            </article>
+
+            <article class="card" aria-labelledby="judul-peserta">
+              <h3 id="judul-peserta">Peserta terdaftar</h3>
+              <ul id="detail-peserta" class="list"></ul>
+              <p id="peserta-kosong" class="muted" hidden>Belum ada peserta. Jadi yang pertama daftar.</p>
+            </article>
+          </div>
+
+          <form id="form-join" class="card form-card" novalidate aria-labelledby="judul-form">
+            <h2 id="judul-form">Daftar Main</h2>
+            <p class="muted small">Isi data berikut, lalu kamu akan diarahkan ke admin PB lewat WhatsApp.</p>
+
+            <div class="form-group">
+              <label for="join-nama">Nama lengkap</label>
+              <input type="text" id="join-nama" name="nama" autocomplete="name" placeholder="Contoh: Budi Santoso">
+              <p class="error" id="error-nama" role="alert"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="join-hp">Nomor HP / WhatsApp</label>
+              <input type="tel" id="join-hp" name="hp" inputmode="numeric" autocomplete="tel" placeholder="Contoh: 081234567890">
+              <p class="error" id="error-hp" role="alert"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="join-jumlah">Jumlah slot</label>
+              <input type="number" id="join-jumlah" name="jumlah" min="1" value="1">
+              <p class="error" id="error-jumlah" role="alert"></p>
+            </div>
+
+            <div class="estimasi">
+              <span>Estimasi biaya</span>
+              <strong id="join-estimasi">Rp0</strong>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Daftar Sekarang</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAMPILAN 3: KONFIRMASI ===== -->
+    <section id="view-konfirmasi" class="view" aria-labelledby="judul-konfirmasi" hidden>
+      <div class="container container-narrow">
+        <article class="card confirm-card">
+          <div class="check" aria-hidden="true">&#10003;</div>
+          <h2 id="judul-konfirmasi">Pendaftaran Berhasil!</h2>
+          <p id="konfirmasi-pesan" class="muted">Admin akan menghubungi kamu lewat WhatsApp untuk konfirmasi.</p>
+
+          <dl class="info-list summary">
+            <div><dt>Nama</dt><dd id="konf-nama"></dd></div>
+            <div><dt>Jadwal</dt><dd id="konf-jadwal"></dd></div>
+            <div><dt>Lokasi</dt><dd id="konf-lokasi"></dd></div>
+            <div><dt>Jumlah slot</dt><dd id="konf-jumlah"></dd></div>
+            <div><dt>Total biaya</dt><dd id="konf-total" class="accent"></dd></div>
+          </dl>
+
+          <a id="konf-wa" class="btn btn-primary btn-block" href="#" target="_blank" rel="noopener">Hubungi Admin via WhatsApp</a>
+          <button type="button" class="btn btn-outline btn-block" data-view="beranda">Kembali ke Beranda</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== TAMPILAN 4: ADMIN LOGIN ===== -->
+    <section id="view-admin-login" class="view" aria-labelledby="judul-login" hidden>
+      <div class="container container-narrow">
+        <form id="form-login" class="card form-card" novalidate>
+          <h2 id="judul-login">Masuk Admin PB</h2>
+          <p class="muted small">Pilih PB kamu dan masukkan PIN admin untuk mengelola jadwal dan pendaftar.</p>
+
+          <div class="form-group">
+            <label for="login-pb">Pilih PB</label>
+            <select id="login-pb" name="pb"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="login-pin">PIN admin</label>
+            <input type="password" id="login-pin" name="pin" inputmode="numeric" autocomplete="off" placeholder="Masukkan PIN">
+            <p class="error" id="error-login" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+          <p class="muted small center">Lupa PIN? Hubungi pengelola MainYuk.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== TAMPILAN 5: ADMIN DASHBOARD ===== -->
+    <section id="view-admin" class="view" aria-labelledby="admin-judul" hidden>
+      <div class="container">
+
+        <header class="admin-head">
+          <div>
+            <p class="hero-sub accent">Dashboard Admin</p>
+            <h1 id="admin-judul">Nama PB</h1>
+          </div>
+          <button type="button" id="btn-keluar" class="btn btn-danger-outline">Keluar</button>
+        </header>
+
+        <section class="stats" aria-label="Ringkasan">
+          <article class="stat"><p class="muted small">Jadwal aktif</p><p id="stat-jadwal" class="stat-value">0</p></article>
+          <article class="stat"><p class="muted small">Total pendaftar</p><p id="stat-pendaftar" class="stat-value">0</p></article>
+          <article class="stat"><p class="muted small">Slot terisi</p><p id="stat-slot" class="stat-value">0 / 0</p></article>
+          <article class="stat"><p class="muted small">Perkiraan pemasukan</p><p id="stat-pemasukan" class="stat-value">Rp0</p></article>
+        </section>
+
+        <div class="columns">
+          <div class="column-main">
+            <article class="card" aria-labelledby="judul-admin-jadwal">
+              <h3 id="judul-admin-jadwal">Jadwal Saya</h3>
+              <ul id="admin-jadwal" class="list"></ul>
+              <p id="admin-jadwal-kosong" class="muted" hidden>Belum ada jadwal. Tambahkan lewat form di samping.</p>
+            </article>
+
+            <article class="card" aria-labelledby="judul-admin-pendaftar">
+              <h3 id="judul-admin-pendaftar">Pendaftar</h3>
+              <ul id="admin-pendaftar" class="list"></ul>
+              <p id="admin-pendaftar-kosong" class="muted">Pilih salah satu jadwal untuk melihat pendaftarnya.</p>
+            </article>
+          </div>
+
+          <form id="form-jadwal" class="card form-card" novalidate aria-labelledby="judul-tambah">
+            <h2 id="judul-tambah">Tambah Jadwal</h2>
+
+            <div class="form-group">
+              <label for="jadwal-pb">Nama PB</label>
+              <input type="text" id="jadwal-pb" name="pb" readonly>
+            </div>
+
+            <div class="form-group">
+              <label for="jadwal-lokasi">Lokasi / GOR</label>
+              <input type="text" id="jadwal-lokasi" name="lokasi" placeholder="Contoh: GOR Banjarbaru">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jadwal-hari">Hari</label>
+                <select id="jadwal-hari" name="hari">
+                  <option value="Senin">Senin</option>
+                  <option value="Selasa">Selasa</option>
+                  <option value="Rabu">Rabu</option>
+                  <option value="Kamis">Kamis</option>
+                  <option value="Jumat">Jumat</option>
+                  <option value="Sabtu" selected>Sabtu</option>
+                  <option value="Minggu">Minggu</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="jadwal-jam">Jam</label>
+                <input type="text" id="jadwal-jam" name="jam" placeholder="20.00 - 23.00">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jadwal-bola">Harga bola (Rp)</label>
+                <input type="number" id="jadwal-bola" name="bola" min="0" placeholder="3000">
+              </div>
+              <div class="form-group">
+                <label for="jadwal-lapangan">Biaya lapangan (Rp)</label>
+                <input type="number" id="jadwal-lapangan" name="lapangan" min="0" placeholder="10000">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jadwal-slot">Total slot</label>
+                <input type="number" id="jadwal-slot" name="slot" min="1" placeholder="16">
+              </div>
+              <div class="form-group">
+                <label for="jadwal-wa">No. WhatsApp admin</label>
+                <input type="tel" id="jadwal-wa" name="wa" inputmode="numeric" placeholder="62812...">
+              </div>
+            </div>
+
+            <p class="error" id="error-jadwal" role="alert"></p>
+            <button type="submit" class="btn btn-primary btn-block">Simpan Jadwal</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>MainYuk 2026 - Cari slot badminton bareng PB</p>
+  </footer>
+
+  <!-- Template kartu jadwal: disalin dan diisi oleh JavaScript -->
+  <template id="tpl-kartu">
+    <article class="card jadwal-card">
+      <header class="card-top">
+        <h3 class="jadwal-pb"></h3>
+        <span class="badge"></span>
+      </header>
+      <p class="muted small jadwal-lokasi"></p>
+      <p class="jadwal-waktu"></p>
+      <dl class="harga">
+        <div><dt>Per bola</dt><dd class="harga-bola"></dd></div>
+        <div><dt>Lapangan</dt><dd class="harga-lapangan"></dd></div>
+      </dl>
+      <div class="progress" role="progressbar" aria-label="Slot terisi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill"></div>
+      </div>
+      <p class="muted small jadwal-sisa"></p>
+      <button type="button" class="btn btn-primary btn-block btn-join">Join</button>
+    </article>
+  </template>
+
+</body>
+</html>
