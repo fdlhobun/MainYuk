@@ -268,7 +268,12 @@ a {
   border-bottom: 1px solid var(--border);
 }
 .navbar { justify-content: flex-start; }
-.navbar nav { margin-left: 32px; }
+.navbar nav { 
+  margin-left: 0; 
+  order: 3;
+  width: 100%;
+
+}
 #btn-tema { margin-left: auto; } 
 .logo {
   display: flex;
@@ -570,7 +575,11 @@ input[readonly] {
 /* Tablet */
 @media (min-width: 640px) {
   h1 { font-size: 32px; }
-
+  .navbar nav{ 
+    order: 0;
+    width: auto;
+    margin-left: 32px;
+  }
   .btn-nav { display: inline-flex; }
   .btn-nav { margin-left: auto;}
   .grid  { grid-template-columns: repeat(2, 1fr); }
