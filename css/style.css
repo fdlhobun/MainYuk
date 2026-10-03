@@ -208,6 +208,8 @@ a {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
 .item-info strong { font-weight: 600; }
@@ -217,6 +219,7 @@ a {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Daftar info berpasangan */
@@ -264,7 +267,9 @@ a {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
-
+.navbar { justify-content: flex-start; }
+.navbar nav { margin-left: 32px; }
+#btn-tema { margin-left: auto; } 
 .logo {
   display: flex;
   align-items: center;
@@ -533,7 +538,7 @@ input[readonly] {
   gap: 12px;
   margin-bottom: 24px;
 }
-
+.admin-head .hero-sub { color: var(--primary); }
 /* Kotak ringkasan 2 kolom di HP */
 .stats {
   display: grid;
@@ -567,10 +572,10 @@ input[readonly] {
   h1 { font-size: 32px; }
 
   .btn-nav { display: inline-flex; }
-
+  .btn-nav { margin-left: auto;}
   .grid  { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
-
+  #btn-tema { margin-left: 0;}
   .list-item {
     flex-direction: row;
     justify-content: space-between;
