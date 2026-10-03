@@ -297,6 +297,7 @@ a {
 .menu {
   display: flex;
   gap: 24px;
+  justify-content: center;
 }
 
 .menu a {
@@ -580,6 +581,7 @@ input[readonly] {
     width: auto;
     margin-left: 32px;
   }
+  .menu { justify-content: flex-start;}
   .btn-nav { display: inline-flex; }
   .btn-nav { margin-left: auto;}
   .grid  { grid-template-columns: repeat(2, 1fr); }
@@ -641,7 +643,16 @@ input[readonly] {
     flex-shrink: 0;
   }
 }
-
+@media (min-width: 1100px) {
+  .navbar { position: relative; }
+  .navbar nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 0;
+  }
+}
 /* AKSESIBILITAS  */
 
 /* Garis fokus yang jelas untuk pengguna keyboard */
